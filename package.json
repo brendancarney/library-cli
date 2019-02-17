@@ -1,0 +1,27 @@
+{
+  "name": "library-cli",
+  "version": "0.0.1",
+  "description": "A CLI for building React libraries",
+  "main": "index.js",
+  "bin": {
+    "library": "index.js"
+  },
+  "scripts": {},
+  "author": "Brendan Carney <bcarney02@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.3",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/preset-react": "^7.0.0",
+    "caporal": "^1.1.0",
+    "chalk": "^2.4.2",
+    "cross-spawn": "^6.0.5",
+    "read-pkg-up": "^4.0.0",
+    "rollup": "^1.2.1",
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-node-resolve": "^4.0.0",
+    "rollup-plugin-size": "^0.0.1"
+  }
+}
