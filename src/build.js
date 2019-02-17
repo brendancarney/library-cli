@@ -23,7 +23,7 @@ function build({ format, file, external }) {
 }
 
 module.exports = function(args, options, logger) {
-  const { external = [] } = options;
+  const external = Object.keys(pkg.peerDependencies || {});
 
   build({ format: "cjs", file: pkg.main, external });
 

@@ -1,6 +1,14 @@
-const path = require("path");
-
 // Copied from https://github.com/kentcdodds/kcd-scripts/blob/master/src/utils.js
+
+const path = require("path");
+const readPkgUp = require("read-pkg-up");
+
+const { pkg, path: pkgPath } = readPkgUp.sync();
+
+const appDirectory = path.dirname(pkgPath);
+
+const fromRoot = (...p) => path.join(appDirectory, ...p);
+
 function resolveBin(
   modName,
   { executable = modName, cwd = process.cwd() } = {}
@@ -30,5 +38,6 @@ function resolveBin(
 }
 
 module.exports = {
+  fromRoot,
   resolveBin
 };

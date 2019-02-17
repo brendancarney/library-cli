@@ -9,7 +9,7 @@ const here = p => path.join(__dirname, p);
 export default {
   input: "src/index.js",
   plugins: [
-    resolve(),
+    resolve({ preferBuiltins: false }),
     babel({
       configFile: here("./babel.config.js"),
       exclude: /node_modules/
