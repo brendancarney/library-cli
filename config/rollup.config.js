@@ -16,7 +16,7 @@ export default {
       exclude: /node_modules/
     }),
     commonjs({ include: /node_modules/ }),
-    postcss({ extract: true }),
+    postcss({ extract: "./styles.css" }),
     size()
   ]
 };
