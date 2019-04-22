@@ -13,7 +13,10 @@ function build({ format, file, external }) {
   return spawn.sync(
     resolveBin("rollup"),
     [
-      ...["--external", ["react", "react-dom", ...external].join(",")],
+      ...[
+        "--external",
+        ["react", "react-dom", "prop-types", ...external].join(",")
+      ],
       ...["--config", here("../config/rollup.config.js")],
       ...["--format", format],
       ...["--file", file]

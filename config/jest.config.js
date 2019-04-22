@@ -15,6 +15,9 @@ const ignores = [
 const jestConfig = {
   testURL: "http://localhost",
   moduleFileExtensions: ["js", "json", "ts"],
+  moduleNameMapper: {
+    "\\.(css)$": here("../src/object-proxy")
+  },
   collectCoverageFrom: ["src/**/*.+(js|ts)"],
   testMatch: ["**/__tests__/**/*.+(js|ts)"],
   testPathIgnorePatterns: ignores,
