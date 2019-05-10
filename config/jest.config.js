@@ -1,7 +1,4 @@
 const path = require("path");
-const babelJest = require("babel-jest");
-
-const { fromRoot } = require("../src/utils");
 
 const here = p => path.join(__dirname, p);
 
