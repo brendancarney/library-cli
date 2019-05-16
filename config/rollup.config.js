@@ -14,6 +14,7 @@ export default {
     resolve({ preferBuiltins: false }),
     babel({
       configFile: here("./babel.config.js"),
+      runtimeHelpers: true,
       exclude: /node_modules/
     }),
     commonjs({ include: /node_modules/ }),

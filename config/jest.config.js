@@ -16,7 +16,7 @@ const jestConfig = {
     "\\.(css)$": here("../src/object-proxy")
   },
   collectCoverageFrom: ["src/**/*.+(js|ts)"],
-  testMatch: ["**/__tests__/**/*.+(js|ts)"],
+  testMatch: ["<rootDir>/**/__tests__/**/*.+(js|ts)"],
   testPathIgnorePatterns: ignores,
   coveragePathIgnorePatterns: ignores,
   transformIgnorePatterns: ["[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$"],
