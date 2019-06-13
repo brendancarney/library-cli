@@ -12,12 +12,17 @@ export default {
   input: "src/index.js",
   plugins: [
     resolve({ preferBuiltins: false }),
+    commonjs({
+      include: /node_modules/,
+      namedExports: {
+        "react-dom/server": ["renderToStaticMarkup"]
+      }
+    }),
     babel({
       configFile: here("./babel.config.js"),
       runtimeHelpers: true,
       exclude: /node_modules/
     }),
-    commonjs({ include: /node_modules/ }),
     json(),
     postcss({ extract: "./styles.css", autoModules: true }),
     size()
