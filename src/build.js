@@ -2,14 +2,17 @@ const chalk = require("chalk");
 const path = require("path");
 const spawn = require("cross-spawn");
 const readPkgUp = require("read-pkg-up");
-
-const { resolveBin } = require("./utils");
+const { resolveBin, hasFile, fromRoot } = require("./utils");
 
 const here = p => path.join(__dirname, p);
 
 const pkg = readPkgUp.sync().pkg;
 
 function build({ format, file, external }) {
+  const config = hasFile("rollup.config.js")
+    ? fromRoot("rollup.config.js")
+    : here("../config/rollup.config.js");
+
   return spawn.sync(
     resolveBin("rollup"),
     [
@@ -17,7 +20,7 @@ function build({ format, file, external }) {
         "--external",
         ["react", "react-dom", "prop-types", ...external].join(",")
       ],
-      ...["--config", here("../config/rollup.config.js")],
+      ...["--config", config],
       ...["--format", format],
       ...["--file", file]
     ],
@@ -26,6 +29,12 @@ function build({ format, file, external }) {
 }
 
 module.exports = function(args, options, logger) {
+  const hasConfig = hasFile("rollup.config.js");
+
+  if (hasConfig) {
+    logger.info(chalk.yellow("Using local rollup config"));
+  }
+
   const external = Object.keys(pkg.peerDependencies || {});
 
   build({ format: "cjs", file: pkg.main, external });

@@ -1,5 +1,6 @@
 // Copied from https://github.com/kentcdodds/kcd-scripts/blob/master/src/utils.js
 
+const fs = require("fs");
 const path = require("path");
 const readPkgUp = require("read-pkg-up");
 
@@ -8,6 +9,8 @@ const { path: pkgPath } = readPkgUp.sync();
 const appDirectory = path.dirname(pkgPath);
 
 const fromRoot = (...p) => path.join(appDirectory, ...p);
+
+const hasFile = (...p) => fs.existsSync(fromRoot(...p));
 
 function resolveBin(
   modName,
@@ -39,5 +42,6 @@ function resolveBin(
 
 module.exports = {
   fromRoot,
+  hasFile,
   resolveBin
 };

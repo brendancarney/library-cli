@@ -6,5 +6,5 @@ const config = [
 
 module.exports = function(args, options, logger) {
   process.env.NODE_ENV = "test";
-  require("jest").run([...config]);
+  require("jest").run([...config, args.files || "."]);
 };

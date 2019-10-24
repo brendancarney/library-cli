@@ -8,6 +8,7 @@ program
   .command("build", "build the package")
   .action(build)
   .command("test", "test the package")
+  .argument("[files]", "files")
   .action(test);
 
 program.parse(process.argv);
