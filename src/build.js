@@ -18,7 +18,7 @@ function build({ format, file, external }) {
     [
       ...[
         "--external",
-        ["react", "react-dom", "prop-types", ...external].join(",")
+        ["react", "react-dom", "prop-types", "stream", ...external].join(",")
       ],
       ...["--config", config],
       ...["--format", format],
