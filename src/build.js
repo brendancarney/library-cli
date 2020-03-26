@@ -8,7 +8,7 @@ const here = p => path.join(__dirname, p);
 
 const pkg = readPkgUp.sync().pkg;
 
-function build({ format, file, external }) {
+function build({ format, file }) {
   const config = hasFile("rollup.config.js")
     ? fromRoot("rollup.config.js")
     : here("../config/rollup.config.js");
@@ -18,7 +18,7 @@ function build({ format, file, external }) {
     [
       ...[
         "--external",
-        ["react", "react-dom", "prop-types", "stream", ...external].join(",")
+        ["react", "react-dom", "prop-types", "stream"].join(",")
       ],
       ...["--config", config],
       ...["--format", format],
@@ -35,12 +35,10 @@ module.exports = function(args, options, logger) {
     logger.info(chalk.yellow("Using local rollup config"));
   }
 
-  const external = Object.keys(pkg.peerDependencies || {});
-
-  build({ format: "cjs", file: pkg.main, external });
+  build({ format: "cjs", file: pkg.main });
 
   if (pkg.module) {
-    build({ format: "esm", file: pkg.module, external });
+    build({ format: "esm", file: pkg.module });
   } else {
     logger.debug(
       chalk.yellow(
