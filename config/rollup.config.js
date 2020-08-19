@@ -8,17 +8,17 @@ const readPkgUp = require("read-pkg-up");
 const path = require("path");
 
 const pkg = readPkgUp.sync().pkg;
-const here = p => path.join(__dirname, p);
+const here = (p) => path.join(__dirname, p);
 const peerDependencies = Object.keys(pkg.peerDependencies || {});
 
-const importToPackageName = importName => {
+const importToPackageName = (importName) => {
   return importName.replace(/^(@[^\/]+\/)?([^\/]+)(?:.+)?/, "$1$2");
 };
 
-const isPeerDependency = id => {
+const isPeerDependency = (id) => {
   const packageName = importToPackageName(id);
 
-  return peerDependencies.some(peerDependency => {
+  return peerDependencies.some((peerDependency) => {
     if (peerDependency == packageName) {
       return true;
     }
@@ -27,7 +27,7 @@ const isPeerDependency = id => {
 
 export default {
   input: "src/index.js",
-  external: id => {
+  external: (id) => {
     if (isPeerDependency(id)) {
       // mark peer dependencies as external
       return true;
@@ -39,16 +39,17 @@ export default {
     commonjs({
       include: /node_modules/,
       namedExports: {
-        "react-dom/server": ["renderToStaticMarkup"]
-      }
+        esrever: ["reverse"],
+        "react-dom/server": ["renderToStaticMarkup"],
+      },
     }),
     babel({
       configFile: here("./babel.config.js"),
       runtimeHelpers: true,
-      exclude: /node_modules/
+      exclude: /node_modules/,
     }),
     json(),
     postcss({ extract: "./styles.css", autoModules: true }),
-    size()
-  ]
+    size(),
+  ],
 };

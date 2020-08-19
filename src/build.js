@@ -4,7 +4,7 @@ const spawn = require("cross-spawn");
 const readPkgUp = require("read-pkg-up");
 const { resolveBin, hasFile, fromRoot } = require("./utils");
 
-const here = p => path.join(__dirname, p);
+const here = (p) => path.join(__dirname, p);
 
 const pkg = readPkgUp.sync().pkg;
 
@@ -18,17 +18,18 @@ function build({ format, file }) {
     [
       ...[
         "--external",
-        ["react", "react-dom", "prop-types", "stream"].join(",")
+        // TODO: automatically external node builtins
+        ["react", "react-dom", "prop-types", "stream", "tty", "os"].join(","),
       ],
       ...["--config", config],
       ...["--format", format],
-      ...["--file", file]
+      ...["--file", file],
     ],
     { stdio: "inherit" }
   );
 }
 
-module.exports = function(args, options, logger) {
+module.exports = function (args, options, logger) {
   const hasConfig = hasFile("rollup.config.js");
 
   if (hasConfig) {
