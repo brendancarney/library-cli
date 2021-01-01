@@ -6,6 +6,7 @@ import postcss from "rollup-plugin-postcss";
 import size from "rollup-plugin-size";
 const readPkgUp = require("read-pkg-up");
 const path = require("path");
+const { fromRoot, hasFile } = require('../src/utils');
 
 const pkg = readPkgUp.sync().pkg;
 const here = (p) => path.join(__dirname, p);
@@ -24,6 +25,9 @@ const isPeerDependency = (id) => {
     }
   });
 };
+
+const babelConfigSources = ['.babelrc', '.babelrc.json', 'babel.config.json', 'babel.config.js']
+const existingBabelConfig = babelConfigSources.find(config => hasFile(config))
 
 export default {
   input: "src/index.js",
@@ -44,7 +48,7 @@ export default {
       },
     }),
     babel({
-      configFile: here("./babel.config.js"),
+      configFile: existingBabelConfig ? fromRoot(existingBabelConfig) : here("./babel.config.js"),
       runtimeHelpers: true,
       exclude: /node_modules/,
     }),
